@@ -9,7 +9,7 @@ en francais endpoint signifie point de terminaison
 endpoint = "http://localhost:8000/api/v1/product/detail/"
 
 # on fait une requete GET sur l'endpoint
-response = requests.get(endpoint, params={'name':'donald'}, json={'name':'donald', 'age':23, 'message':'test'})
+response = requests.post(endpoint, json={'name': 'pr', 'price': 'bla'})
 
 print(response.json())
 

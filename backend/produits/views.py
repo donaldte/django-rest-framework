@@ -12,22 +12,20 @@ from .serializer import ProductSerializer
 def product_api_view(request):
     product1 = Product.objects.all().order_by('?').first()
     data = {}
-    # if request.method == 'GET':
-    #     return Response({'error': 'methode get non accepte', 'status': 405})
-    if product1:
-        # data = {
-        #     'name': product1.name,
-        #     'price': product1.price,
-        #     'description': product1.description,
-        # }
-        # data = model_to_dict(product1, fields=['id', 'name'])
-        data = ProductSerializer(product1).data 
-        # serialization : definition: serialization est le processus de 
-        # conversion d'une instance en un format qui peut etre stocke ou transmis
-        # et reconstruit plus tard
-        # deserialization: definition: deserialization est le processus de 
-        # conversion d'un format stocke ou transmis en une instance(ou objet)
-        # prend une instance 
-        # convertir cette instance en dict 
-        # puis renvoie le 
+    if request.method == 'GET':
+        if product1:
+        
+            data = ProductSerializer(product1).data 
+            
+    if request.method == 'POST':
+        data = request.data
+        print('post data', data)
+        serializer = ProductSerializer(data=data)
+        # form = ProductForm(data) if form.is_valid() else None
+        if serializer.is_valid(raise_exception=True):
+            # serializer.save()
+            data = serializer.data
+        # else:
+        #     data = serializer.errors
+       
     return Response(data)
